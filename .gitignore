@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+.env*
+npm-debug.log*
+
+# Archives
+*.rar
+*.zip
+
+# Local Claude Code settings (may contain machine-specific config/secrets)
+.claude/settings.local.json
