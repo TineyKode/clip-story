@@ -7,11 +7,18 @@ function normalize(item) {
 }
 
 // Listen for messages from content script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+let saveChain = Promise.resolve();
+
+function enqueueSave(text) {
+  saveChain = saveChain
+    .then(() => saveToHistory(text))
+    .catch((error) => console.error('Clip Story save failed', error));
+}
+
+chrome.runtime.onMessage.addListener((message) => {
   if (message.type === 'new-clipboard-text') {
-    saveToHistory(message.text);
+    enqueueSave(message.text);
   }
-  return true;
 });
 
 async function saveToHistory(text) {

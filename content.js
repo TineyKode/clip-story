@@ -16,7 +16,8 @@ function getCopiedText() {
     if (fieldText) return fieldText;
   }
 
-  return document.getSelection().toString();
+  const selection = document.getSelection();
+  return selection ? selection.toString() : '';
 }
 
 function handleCopy() {
